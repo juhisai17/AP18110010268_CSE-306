@@ -67,5 +67,5 @@ void main ()
 	if (st == 2 || st == 4)
 		printf ("String is accepted\n");
 	else
-		printf ("String is not accepted\n");
+		printf ("String is not accepted \n");
 }
