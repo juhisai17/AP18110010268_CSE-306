@@ -4,7 +4,7 @@
 #include<stdio.h>
   int statements = 0;
   int ids = 0;
-  int assign = 0;
+  int assign =0;
   int rel = 0;
   int keywords = 0;
   int integers = 0; 
