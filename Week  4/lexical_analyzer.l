@@ -1,39 +1,30 @@
-%{
-#undef yywrap
-#define yywrap() 1
-#include<stdio.h>
-  int statements = 0;
-  int ids = 0;
-  int assign =0;
-  int rel = 0;
-  int keywords = 0;
-  int integers = 0; 
+%{ 
+#include <stdio.h>
 %}
+	
+%% 
 
-DIGIT [0-9]
-LETTER [A-Za-z]
-TYPE int|char|bool|float|void|for|do|while|if|else|return|void|printf|scanf|main|include|stdio
-PARAN "{"|"}"|"("|")"
-RELOP "+"|"-"|"*"|"%"|"&"|"/"|"<"|">"
-EXPR ","|";"|"\""|"."
-%option yylineno
-%option noyywrap
+int|main|void|if|else|for|while|char|return|bool { fprintf(yyout, "keyword -  %s\n", yytext); } 
+[a-z]([a-z]|[0-9])* { fprintf(yyout, "identifier - %s\n", yytext); } 
+[0-9]* { fprintf(yyout, "integer - %s\n", yytext); } 
+"<"|">"|"=="|"<="|">="|"!=" { fprintf(yyout, "relop - %s\n", yytext); } 
+"{"|"}"|"("|")" { fprintf(yyout, "paranthesis - %s\n", yytext); } 
+"/*"[^*/]*"*/" {} 
+"\t"|"\n"|" "|; {}
 
-%%
-{TYPE} {fprintf(yyout, " Keyword : %s\n", yytext);}
-{RELOP} {fprintf(yyout, " Relational Operator : %s\n" , yytext);}
-{PARAN} {fprintf(yyout, "Paranthesis : %s\n", yytext);}
-{EXPR} {fprintf(yyout, " Supporters : %s\n", yytext);}
-[0-9]+|[a-zA-Z][a-zA-Z0-9_]* {fprintf(yyout, "Identifier : %s\n" ,yytext);}
-%%
-void main(int argc, char **argv)
-{
-extern FILE *yyin, *yyout; 
-  
-    yyin = fopen("1.c", "r"); 
-  
-    yyout = fopen("Output2.txt", "w"); 
-    
-  yylex();
-  printf("Successs! ! !\n");
+%% 
+
+int yywrap(){} 
+
+int main() 
+{ 
+
+	extern FILE *yyin, *yyout; 
+
+	yyin = fopen("in.txt", "r"); 
+
+	yyout = fopen("out.txt", "w"); 
+
+	yylex(); 
+	return 0; 
 }
