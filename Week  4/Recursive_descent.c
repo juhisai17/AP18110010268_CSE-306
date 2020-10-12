@@ -5,7 +5,7 @@ char *ip;
 char string[50];
 int main()
 {
-    printf("Enter the string:\n");
+    printf("Enter the string: \n");
     scanf("%s",string);
     ip=string;
     printf("\n\nInput\tAction\n--------------------------------\n");
